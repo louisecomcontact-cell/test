@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suich — Personal Information</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#ffffff;
+  --ink:#0b0b0d;
+  --ink-dim:#6b6b74;
+  --ink-soft:#9a9aa3;
+  --red:#e8112d;
+  --red-soft:#ff2d44;
+  --green:#1ea864;
+  --line:rgba(11,11,13,0.08);
+  --field-bg:#f6f6f7;
+  --glass:rgba(255,255,255,0.62);
+  --glass-brd:rgba(255,255,255,0.7);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:#e9e9ec;
+  font-family:'Manrope',sans-serif;
+  display:flex;justify-content:center;align-items:center;
+  min-height:100vh;padding:40px;
+}
+
+.phone{
+  width:390px;height:844px;border-radius:54px;
+  background:var(--bg);position:relative;overflow:hidden;
+  box-shadow:0 40px 120px rgba(0,0,0,.35), inset 0 0 0 2px #d8d8dc;
+  display:flex;flex-direction:column;
+}
+
+/* STATUS */
+.status{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 28px 0;color:var(--ink);font-weight:700;font-size:15px;font-family:'Sora';
+  flex-shrink:0;
+}
+.status .right{display:flex;gap:7px;align-items:center;}
+.status .right svg{width:17px;height:17px;}
+
+/* HEADER */
+.header{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 20px 8px;flex-shrink:0;
+}
+.back{
+  width:42px;height:42px;border-radius:14px;
+  background:#f4f4f6;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+}
+.back svg{width:18px;height:18px;}
+.header h1{
+  font-family:'Sora';font-weight:700;font-size:20px;color:var(--ink);
+  letter-spacing:-.3px;flex:1;
+}
+
+/* SCROLLABLE BODY */
+.body{
+  flex:1;overflow-y:auto;
+  padding:8px 20px 100px;
+}
+.body::-webkit-scrollbar{display:none;}
+
+/* PROFILE PICTURE */
+.profile-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  margin:18px 0 28px;
+}
+.avatar-lg{
+  width:108px;height:108px;border-radius:50%;
+  background:linear-gradient(140deg,#1a1a1f,#0a0a0d);
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 12px 32px rgba(0,0,0,.25);
+  border:4px solid #fff;
+  outline:1px solid var(--line);
+}
+.avatar-lg .initials{
+  font-family:'Sora';font-weight:700;font-size:42px;color:#fff;letter-spacing:-1px;
+}
+.avatar-lg .edit{
+  position:absolute;bottom:-2px;right:-2px;
+  width:34px;height:34px;border-radius:50%;
+  background:var(--red);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 16px rgba(232,17,45,.4);
+  border:3px solid #fff;cursor:pointer;
+}
+.avatar-lg .edit svg{width:14px;height:14px;}
+.profile-label{
+  font-family:'Manrope';font-weight:600;font-size:13px;color:var(--ink-soft);
+  margin-top:14px;letter-spacing:.2px;
+}
+
+/* FIELDS */
+.field{margin-bottom:18px;}
+.field-head{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:8px;
+}
+.field-label{
+  font-family:'Sora';font-weight:600;font-size:12px;color:var(--ink);
+  letter-spacing:.3px;text-transform:uppercase;
+}
+.field-actions{display:flex;gap:14px;}
+.field-action{
+  font-family:'Manrope';font-weight:700;font-size:12px;color:var(--red);
+  display:flex;align-items:center;gap:4px;cursor:pointer;
+}
+.field-action svg{width:12px;height:12px;}
+.field-action.muted{color:var(--ink-dim);}
+
+.input{
+  width:100%;padding:15px 16px;border-radius:14px;
+  background:var(--field-bg);border:1px solid transparent;
+  font-family:'Manrope';font-weight:600;font-size:14.5px;color:var(--ink);
+  outline:none;transition:all .2s;
+}
+.input::placeholder{color:var(--ink-soft);font-weight:500;}
+.input:focus{border-color:var(--ink);background:#fff;}
+.input.filled{background:#fff;border-color:var(--line);}
+
+.phone-group{display:flex;gap:8px;}
+.phone-prefix{
+  display:flex;align-items:center;gap:8px;
+  padding:13px 14px;border-radius:14px;background:var(--field-bg);
+  font-family:'Sora';font-weight:700;font-size:14px;color:var(--ink);
+  flex-shrink:0;cursor:pointer;
+}
+.phone-prefix .flag{
+  width:22px;height:22px;border-radius:50%;
+  background:linear-gradient(180deg,#fff 50%,var(--red) 50%);
+  border:1px solid var(--line);position:relative;
+}
+.phone-prefix .flag::after{
+  content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:9px;height:9px;background:#fff;border:1px solid var(--red);border-radius:1px;
+}
+.phone-prefix svg{width:11px;height:11px;}
+
+/* PASSWORD ROW */
+.row-link{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 0;border-top:1px solid var(--line);
+}
+.row-link:first-of-type{border-top:1px solid var(--line);margin-top:12px;}
+.row-link .left{
+  display:flex;align-items:center;gap:12px;
+  font-family:'Sora';font-weight:600;font-size:14.5px;color:var(--ink);
+}
+.row-link .left svg{width:18px;height:18px;}
+.row-link.danger .left{color:var(--red);}
+.row-link .right{
+  display:flex;align-items:center;gap:6px;
+  font-family:'Manrope';font-weight:700;font-size:12.5px;color:var(--red);
+}
+.row-link .right svg{width:14px;height:14px;}
+.row-link .chev{color:var(--ink-soft);}
+
+.home-ind{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);width:130px;height:5px;border-radius:3px;background:rgba(11,11,13,.85);z-index:30;}
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <div class="status">
+    <span>9:41</span>
+    <div class="right">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 12h3v6H2zM7 8h3v10H7zM12 5h3v13h-3zM17 2h3v16h-3z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 3 7 1 11c2 4 6 7 11 7s9-3 11-7c-2-4-6-7-11-7zm0 11a4 4 0 110-8 4 4 0 010 8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="7" width="18" height="10" rx="3"/><rect x="21" y="10" width="2" height="4" rx="1"/></svg>
+    </div>
+  </div>
+
+  <div class="header">
+    <div class="back">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#0b0b0d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h1>Personal Information</h1>
+  </div>
+
+  <div class="body">
+    <div class="profile-wrap">
+      <div class="avatar-lg">
+        <span class="initials">M</span>
+        <div class="edit">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 20h4l10-10-4-4L4 16v4z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6l4 4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div class="profile-label">PROFILE PICTURE</div>
+    </div>
+
+    <div class="field">
+      <div class="field-head"><div class="field-label">First name</div></div>
+      <input class="input" placeholder="First name">
+    </div>
+
+    <div class="field">
+      <div class="field-head"><div class="field-label">Last name</div></div>
+      <input class="input" placeholder="Last name">
+    </div>
+
+    <div class="field">
+      <div class="field-head">
+        <div class="field-label">Email</div>
+        <div class="field-actions">
+          <div class="field-action">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#e8112d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Verify email
+          </div>
+          <div class="field-action">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 20h4l10-10-4-4L4 16v4z" stroke="#e8112d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Edit email
+          </div>
+        </div>
+      </div>
+      <input class="input filled" value="driver@gmail.com">
+    </div>
+
+    <div class="field">
+      <div class="field-head"><div class="field-label">Phone</div></div>
+      <div class="phone-group">
+        <div class="phone-prefix">
+          <div class="flag"></div>
+          +41
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#0b0b0d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <input class="input" placeholder="XX-XX-XX-XX" style="flex:1;">
+      </div>
+    </div>
+
+    <div class="row-link">
+      <div class="left">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="#0b0b0d" stroke-width="1.8"/><path d="M8 11V8a4 4 0 018 0v3" stroke="#0b0b0d" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Password
+      </div>
+      <div class="right">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 20h4l10-10-4-4L4 16v4z" stroke="#e8112d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Change password
+      </div>
+    </div>
+
+    <div class="row-link">
+      <div class="left">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#0b0b0d" stroke-width="1.8"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18" stroke="#0b0b0d" stroke-width="1.6"/></svg>
+        Spoken languages
+      </div>
+      <div class="chev">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#9a9aa3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+
+    <div class="row-link danger">
+      <div class="left">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 7h14M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12" stroke="#e8112d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Delete account
+      </div>
+      <div class="right">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 7h14M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12" stroke="#e8112d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Delete
+      </div>
+    </div>
+  </div>
+
+  <div class="home-ind"></div>
+</div>
+</body>
+</html>
